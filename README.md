@@ -1,1 +1,20 @@
 # SMPinView
+Simple view which enables you to add sms pin code typing view easier. If you want to create views from storyboard and want to make it work to verify sms code, this class will help you.
+Please note, while doing project I found to be easier in some scenario so I through to share with you all. Hope this will help someone.
+
+## Getting Started
+
+* Create UIView in storyboard.
+* Assign **SMPinView** to it.
+* Now add textfields as much you want for your app and provide class name as `SMPinTextField` in **Identity Inspector**
+* Order you textfields in ascending order and assign tags from **Attribute Inspector**.
+* Get your value with `getPinViewText()` method.
+* That's it. 👍
+
+## Author
+
+* **Santosh Maharjan** - [santoshm.com.np](http://www.santoshm.com.np)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for more info.
