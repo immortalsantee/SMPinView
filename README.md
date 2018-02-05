@@ -4,9 +4,10 @@ Please note, while doing project I found to be easier in some scenario so I thro
 
 ## Getting Started
 
-* Create UIView in storyboard.
+* Drag **SMPinView** file into your project and make sure you select **☑️Copy items if needed**.
+* Drag and drop **UIView** in storyboard from **Object Library**.
 * Assign **SMPinView** to it.
-* Now add textfields as much you want for your app and provide class name as `SMPinTextField` in **Identity Inspector**
+* Now add `UITextField`s as much you want for your app and provide class name as `SMPinTextField` from **Identity Inspector**
 * Order you textfields and assign tags from **Attribute Inspector**. Make sure you textfields are as in order with your tags.
 * Once you set you tags, now create an outlet of **SMPinView** to your controller. This will help to perform further actions.
 * To get the value typed within textfields, just call `getPinViewText()` method from the **SMPinView** instance variable.
