@@ -23,12 +23,6 @@ class SMPinView: UIView, UITextFieldDelegate {
     
     //MARK:- Properties
     
-    /** Get typed value from ths varaiable  */
-    lazy private var resultValue: String = {
-        guard let pinTFs = smPinTextFields else {return ""}
-        let value = pinTFs.reduce("", {$0 + ($1.text ?? "")})
-        return value
-    }()
     private var smPinTextFields: [SMPinTextField]?
     @IBInspectable public var fontSize: CGFloat = 30
     
@@ -103,7 +97,9 @@ class SMPinView: UIView, UITextFieldDelegate {
      *  Returns string of current text fields
      */
     func getPinViewText() -> String {
-        return resultValue
+        guard let pinTFs = smPinTextFields else {return ""}
+        let value = pinTFs.reduce("", {$0 + ($1.text ?? "")})
+        return value
     }
     
     /**
