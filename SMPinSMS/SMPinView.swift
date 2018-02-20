@@ -34,7 +34,7 @@ class SMPinView: UIView, UITextFieldDelegate {
     
     //MARK:- Properties
     
-    private var smPinTextFields: [SMPinTextField]?
+    fileprivate var smPinTextFields: [SMPinTextField]?
     @IBInspectable public var fontSize: CGFloat = 30
     
     
@@ -120,6 +120,13 @@ class SMPinView: UIView, UITextFieldDelegate {
      */
     func makeFirstTextFieldResponder() {
         smPinTextFields?.first?.becomeFirstResponder()
+    }
+    
+    /**
+     *  Ends all responder.
+     */
+    func resignAllResponder() {
+        self.endEditing(true)
     }
     
     /**
