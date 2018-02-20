@@ -8,8 +8,19 @@
 
 import UIKit
 
+protocol SMPinTextFieldDeleteDelegate: class {
+    func textFieldDidDelete(smPinTextField: SMPinTextField)
+}
+
 /** Pin styled textfield. You can add additional feature if you want. */
-class SMPinTextField: UITextField {}
+class SMPinTextField: UITextField {
+    weak var deleteDelegate: SMPinTextFieldDeleteDelegate?
+    
+    override func deleteBackward() {
+        super.deleteBackward()
+        deleteDelegate?.textFieldDidDelete(smPinTextField: self)
+    }
+}
 
 /**
  1. Create UIView in storyboard.
@@ -58,6 +69,7 @@ class SMPinView: UIView, UITextFieldDelegate {
         let pinTFs = self.subviews.flatMap{$0 as? SMPinTextField}
         pinTFs.forEach {
             $0.delegate = self
+            $0.deleteDelegate = self
             $0.textAlignment = .center
             $0.font = UIFont.systemFont(ofSize: self.fontSize)
             $0.keyboardType = .numberPad
@@ -75,6 +87,7 @@ class SMPinView: UIView, UITextFieldDelegate {
         }else{
             /*  Means user has pressed backspace so set empty string.  */
             sender.text = ""
+            return
         }
         
         /*  Make sure the tag doesn't overflow the array index  */
@@ -116,5 +129,14 @@ class SMPinView: UIView, UITextFieldDelegate {
         smPinTextFields?.forEach{ $0.text = ""}
     }
     
+}
+
+extension SMPinView: SMPinTextFieldDeleteDelegate {
+    func textFieldDidDelete(smPinTextField: SMPinTextField) {
+        guard let smPinTFs = smPinTextFields else {return}
+        
+        let previousTag = smPinTextField.tag - 2
+        smPinTFs[previousTag <= 0 ? 0 : previousTag].becomeFirstResponder()
+    }
     
 }
