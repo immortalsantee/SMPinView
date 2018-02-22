@@ -116,6 +116,15 @@ class SMPinView: UIView, UITextFieldDelegate {
     }
     
     /**
+     *  Return if all text fields are filled or not.
+     */
+    func isAllTextFieldTyped() -> Bool {
+        guard let pinTFs = smPinTextFields else {return false}
+        let filledValues = pinTFs.filter{!($0.text?.isEmpty ?? true)}
+        return filledValues.count == pinTFs.count
+    }
+    
+    /**
      *  Makes first SMPinTextField first responder.
      */
     func makeFirstTextFieldResponder() {

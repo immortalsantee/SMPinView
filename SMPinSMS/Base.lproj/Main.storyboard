@@ -70,14 +70,38 @@
                                     <constraint firstItem="bUw-Rf-zsT" firstAttribute="height" secondItem="6jt-Cc-Olm" secondAttribute="height" id="vTN-Ap-mDm"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cly-Zg-W4a">
+                                <rect key="frame" x="67" y="156" width="240" height="40"/>
+                                <color key="backgroundColor" red="0.84083789590000002" green="0.1117544845" blue="0.025013202799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="KAA-4l-36O"/>
+                                </constraints>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="submitHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVK-so-0pH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RtY-QC-u80" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7XV-AY-4RG"/>
+                            <constraint firstItem="cly-Zg-W4a" firstAttribute="width" secondItem="RtY-QC-u80" secondAttribute="width" id="F27-rs-QZM"/>
+                            <constraint firstItem="cly-Zg-W4a" firstAttribute="centerX" secondItem="RtY-QC-u80" secondAttribute="centerX" id="Mro-hg-4eF"/>
                             <constraint firstItem="RtY-QC-u80" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="R3b-AV-ycc"/>
+                            <constraint firstItem="cly-Zg-W4a" firstAttribute="top" secondItem="RtY-QC-u80" secondAttribute="bottom" constant="8" id="XiY-EP-SxK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="smPinView" destination="RtY-QC-u80" id="CIg-qw-8So"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
