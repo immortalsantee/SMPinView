@@ -4,16 +4,19 @@
 //
 //  Created by Santosh Maharjan on 2/4/18.
 //  Copyright © 2018 Cyclone Nepal Info Tech. All rights reserved.
-//
+//  Santosh Maharjan
+//  immortalsantee@me.com
+//  www.santoshm.com.np
 
 import UIKit
 
+protocol SMPin {}
 protocol SMPinTextFieldDeleteDelegate: class {
     func textFieldDidDelete(smPinTextField: SMPinTextField)
 }
 
 /** Pin styled textfield. You can add additional feature if you want. */
-class SMPinTextField: UITextField {
+class SMPinTextField: UITextField, SMPin {
     weak var deleteDelegate: SMPinTextFieldDeleteDelegate?
     
     override func deleteBackward() {
@@ -21,6 +24,8 @@ class SMPinTextField: UITextField {
         deleteDelegate?.textFieldDidDelete(smPinTextField: self)
     }
 }
+
+class SMPinButton: UIButton, SMPin {}
 
 /**
  1. Create UIView in storyboard.
@@ -66,16 +71,21 @@ class SMPinView: UIView, UITextFieldDelegate {
     //MARK:- Private Helper Methods
     
     private func setNecessaryDelegate() {
-        let pinTFs = self.subviews.flatMap{$0 as? SMPinTextField}
+        let pinTFs = self.subviews.flatMap{$0 as? SMPin}
         pinTFs.forEach {
-            $0.delegate = self
-            $0.deleteDelegate = self
-            $0.textAlignment = .center
-            $0.font = UIFont.systemFont(ofSize: self.fontSize)
-            $0.keyboardType = .numberPad
-            $0.addTarget(self, action: #selector(pinTFChanged), for: .editingChanged)
+            if let smPinTF = $0 as? SMPinTextField {
+                smPinTF.delegate = self
+                smPinTF.deleteDelegate = self
+                smPinTF.textAlignment = .center
+                smPinTF.font = UIFont.systemFont(ofSize: self.fontSize)
+                smPinTF.keyboardType = .numberPad
+                smPinTF.addTarget(self, action: #selector(pinTFChanged), for: .editingChanged)
+            }else if let smPinButton = $0 as? SMPinButton {
+                smPinButton.addTarget(self, action: #selector(smPinButtonHandler), for: .touchUpInside)
+            }
+            
         }
-        smPinTextFields = pinTFs
+        smPinTextFields = pinTFs.flatMap{$0 as? SMPinTextField}
     }
     
     @objc private func pinTFChanged(sender: SMPinTextField) {
@@ -101,6 +111,15 @@ class SMPinView: UIView, UITextFieldDelegate {
         }
         
     }
+    
+    @objc private func smPinButtonHandler(sender: SMPinButton) {
+        guard let smPinTFs = smPinTextFields else {return}
+        let activeTF = getActiveTextField() ?? smPinTFs.last
+        activeTF?.deleteBackward()
+    }
+    
+    
+    
     
     
     
@@ -143,6 +162,13 @@ class SMPinView: UIView, UITextFieldDelegate {
      */
     func clearAllText() {
         smPinTextFields?.forEach{ $0.text = ""}
+    }
+    
+    /**
+     *  Get active SMPinTextTield
+     */
+    func getActiveTextField() -> SMPinTextField? {
+        return smPinTextFields?.filter{$0.isFirstResponder}.first
     }
     
 }
