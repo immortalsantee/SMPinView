@@ -14,6 +14,9 @@ protocol SMPin {}
 protocol SMPinTextFieldDeleteDelegate: class {
     func textFieldDidDelete(smPinTextField: SMPinTextField)
 }
+protocol SMPinViewDelegate: class {
+    func textFieldIsTyping(smPinTextField: SMPinTextField)
+}
 
 /** Pin styled textfield. You can add additional feature if you want. */
 class SMPinTextField: UITextField, SMPin {
@@ -40,6 +43,7 @@ class SMPinView: UIView, UITextFieldDelegate {
     //MARK:- Properties
     
     fileprivate var smPinTextFields: [SMPinTextField]?
+    weak var delegate: SMPinViewDelegate?
     @IBInspectable public var fontSize: CGFloat = 30
     
     
@@ -74,6 +78,7 @@ class SMPinView: UIView, UITextFieldDelegate {
         let pinTFs = self.subviews.flatMap{$0 as? SMPin}
         pinTFs.forEach {
             if let smPinTF = $0 as? SMPinTextField {
+                smPinTF.tintColor = .gray
                 smPinTF.delegate = self
                 smPinTF.deleteDelegate = self
                 smPinTF.textAlignment = .center
@@ -93,16 +98,42 @@ class SMPinView: UIView, UITextFieldDelegate {
         
         /*  Get last character form the text typed by user.  */
         if let lastCharacter = (sender.text ?? "").last {
-            sender.text = String(lastCharacter)
+            let typedTextCount = Int(sender.text?.count ?? 0)
+            
+            if typedTextCount > 1 {
+                /*  For current and next text fields  */
+                let firstCharacter = (sender.text ?? "").first ?? " "
+                sender.text = String(firstCharacter)
+                
+                if sender.tag < smPinTFs.count {
+                    smPinTFs[sender.tag].becomeFirstResponder()
+                    (smPinTFs[sender.tag]).text = String(lastCharacter)
+                    
+                    if sender.tag == smPinTFs.count - 1 {
+                        self.endEditing(true)
+                    }
+                }else{
+                    sender.resignFirstResponder()
+                }
+                delegate?.textFieldIsTyping(smPinTextField: sender)
+                
+                return
+                
+            }else{
+                /*  For current text field only  */
+                sender.text = String(lastCharacter)
+            }
+            
         }else{
             /*  Means user has pressed backspace so set empty string.  */
             sender.text = ""
             return
         }
         
+        
         /*  Make sure the tag doesn't overflow the array index  */
         guard sender.tag < smPinTFs.count else {
-            sender.resignFirstResponder()
+            self.endEditing(true)
             return
         }
         if sender.text != "" {
@@ -110,6 +141,7 @@ class SMPinView: UIView, UITextFieldDelegate {
             smPinTFs[sender.tag].becomeFirstResponder()
         }
         
+        delegate?.textFieldIsTyping(smPinTextField: sender)
     }
     
     @objc private func smPinButtonHandler(sender: SMPinButton) {
@@ -179,6 +211,8 @@ extension SMPinView: SMPinTextFieldDeleteDelegate {
         
         let previousTag = smPinTextField.tag - 2
         smPinTFs[previousTag <= 0 ? 0 : previousTag].becomeFirstResponder()
+        
+        delegate?.textFieldIsTyping(smPinTextField: smPinTextField)
     }
     
 }
