@@ -23,7 +23,10 @@ class SMPinTextField: UITextField, SMPin {
     weak var deleteDelegate: SMPinTextFieldDeleteDelegate?
     
     override func deleteBackward() {
+        let currentText = self.text
         super.deleteBackward()
+        
+        self.text = currentText
         deleteDelegate?.textFieldDidDelete(smPinTextField: self)
     }
 }
@@ -88,66 +91,52 @@ class SMPinView: UIView, UITextFieldDelegate {
             }else if let smPinButton = $0 as? SMPinButton {
                 smPinButton.addTarget(self, action: #selector(smPinButtonHandler), for: .touchUpInside)
             }
-            
         }
         smPinTextFields = pinTFs.flatMap{$0 as? SMPinTextField}
     }
     
     @objc private func pinTFChanged(sender: SMPinTextField) {
         guard let smPinTFs = smPinTextFields else {return}
+        let textCount = Int(sender.text?.count ?? 0)
         
-        /*  Get last character form the text typed by user.  */
-        if let lastCharacter = (sender.text ?? "").last {
-            let typedTextCount = Int(sender.text?.count ?? 0)
+        if textCount >= 1 {
+            /*
+             *  Was empty text and user has typed something.
+             *  so, goto next text fields
+             */
+            let lastCharacter = (sender.text ?? "").last ?? " "
+            sender.text = String(lastCharacter)
             
-            if typedTextCount > 1 {
-                /*  For current and next text fields  */
-                let firstCharacter = (sender.text ?? "").first ?? " "
-                sender.text = String(firstCharacter)
-                
-                if sender.tag < smPinTFs.count {
-                    smPinTFs[sender.tag].becomeFirstResponder()
-                    (smPinTFs[sender.tag]).text = String(lastCharacter)
-                    
-                    if sender.tag == smPinTFs.count - 1 {
-                        self.endEditing(true)
-                    }
-                }else{
-                    sender.resignFirstResponder()
-                }
-                delegate?.textFieldIsTyping(smPinTextField: sender)
-                
-                return
-                
+            
+            if sender.tag >= smPinTFs.count {
+                /*
+                 *  index over flow
+                 */
+                sender.resignFirstResponder()
             }else{
-                /*  For current text field only  */
-                sender.text = String(lastCharacter)
+                smPinTFs[sender.tag].becomeFirstResponder()
             }
-            
         }else{
-            /*  Means user has pressed backspace so set empty string.  */
-            sender.text = ""
-            return
-        }
-        
-        
-        /*  Make sure the tag doesn't overflow the array index  */
-        guard sender.tag < smPinTFs.count else {
-            self.endEditing(true)
-            return
-        }
-        if sender.text != "" {
-            /*  Make sure user has typed something. And only make next textField first responder.  */
-            smPinTFs[sender.tag].becomeFirstResponder()
+            /*
+             *  Backspace clicked on middle
+             */
         }
         
         delegate?.textFieldIsTyping(smPinTextField: sender)
     }
     
+    /**
+     *  SMPinButton click handler
+     *  Basically it is backspace button
+     */
     @objc private func smPinButtonHandler(sender: SMPinButton) {
         guard let smPinTFs = smPinTextFields else {return}
-        let activeTF = getActiveTextField() ?? smPinTFs.last
-        activeTF?.deleteBackward()
+        if let activeTF = getActiveTextField() {
+            activeTF.deleteBackward()
+        }else{
+            smPinTFs.last?.text = ""
+            smPinTFs.last?.becomeFirstResponder()
+        }
     }
     
     
@@ -209,8 +198,27 @@ extension SMPinView: SMPinTextFieldDeleteDelegate {
     func textFieldDidDelete(smPinTextField: SMPinTextField) {
         guard let smPinTFs = smPinTextFields else {return}
         
+        /*  Previous  */
         let previousTag = smPinTextField.tag - 2
-        smPinTFs[previousTag <= 0 ? 0 : previousTag].becomeFirstResponder()
+        let previousIndex = previousTag<0 ? 0 : previousTag
+        /*  let previousText = Int(smPinTFs[previousIndex].text ?? "0") ?? 0  */
+        
+        /*  Current  */
+        let currentIndex = smPinTextField.tag - 1
+        let currentText = Int(smPinTFs[currentIndex].text ?? "0") ?? 0
+        
+        if currentText > 0 {
+            /*
+             *  There is text in this textfield. So only need to clear
+             */
+            smPinTFs[currentIndex].text = ""
+        }else{
+            /*
+             *  Means, the text count is zero and need to send back to previous textfield
+             */
+            smPinTFs[previousIndex].becomeFirstResponder()
+            smPinTFs[previousIndex].text = ""
+        }
         
         delegate?.textFieldIsTyping(smPinTextField: smPinTextField)
     }
