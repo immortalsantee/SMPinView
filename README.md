@@ -1,3 +1,5 @@
+**Youtube Video Tutorial** - [Click here](https://youtu.be/6_dDsOsGuGo)
+
 # SMPinView
 Simple view which enables you to add sms pin code typing view easier. If you want to create views from storyboard and want to make it work to verify sms code, this class will help you.
 Please note, while doing project I found to be easier in some scenario so I through to share with you all. Hope this will help someone.
