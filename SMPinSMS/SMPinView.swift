@@ -78,7 +78,7 @@ class SMPinView: UIView, UITextFieldDelegate {
     //MARK:- Private Helper Methods
     
     private func setNecessaryDelegate() {
-        let pinTFs = self.subviews.flatMap{$0 as? SMPin}
+        let pinTFs = self.subviews.compactMap{$0 as? SMPin}
         pinTFs.forEach {
             if let smPinTF = $0 as? SMPinTextField {
                 smPinTF.tintColor = .gray
@@ -92,7 +92,7 @@ class SMPinView: UIView, UITextFieldDelegate {
                 smPinButton.addTarget(self, action: #selector(smPinButtonHandler), for: .touchUpInside)
             }
         }
-        smPinTextFields = pinTFs.flatMap{$0 as? SMPinTextField}
+        smPinTextFields = pinTFs.compactMap{$0 as? SMPinTextField}
     }
     
     @objc private func pinTFChanged(sender: SMPinTextField) {
@@ -207,7 +207,7 @@ extension SMPinView: SMPinTextFieldDeleteDelegate {
         let currentIndex = smPinTextField.tag - 1
         let currentText = Int(smPinTFs[currentIndex].text ?? "0") ?? 0
         
-        if currentText > 0 {
+        if currentText >= 0 {
             /*
              *  There is text in this textfield. So only need to clear
              */
