@@ -41,7 +41,7 @@ class SMPinButton: UIButton, SMPin {}
  5. Get your value with `getPinViewText()` method.
  6. That's it. 👍
  */
-class SMPinView: UIView, UITextFieldDelegate {
+class SMPinView: UIStackView, UITextFieldDelegate {
     
     //MARK:- Properties
     
@@ -54,13 +54,12 @@ class SMPinView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //setNecessaryDelegate()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        //setNecessaryDelegate()
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
     }
+    
     
     
     
@@ -131,7 +130,7 @@ class SMPinView: UIView, UITextFieldDelegate {
      */
     @objc private func smPinButtonHandler(sender: SMPinButton) {
         guard let smPinTFs = smPinTextFields else {return}
-        if let activeTF = getActiveTextField() {
+        if let activeTF = smGetActiveTextField() {
             activeTF.deleteBackward()
         }else{
             smPinTFs.last?.text = ""
@@ -149,7 +148,7 @@ class SMPinView: UIView, UITextFieldDelegate {
     /**
      *  Returns string of current text fields
      */
-    func getPinViewText() -> String {
+    func smGetPinViewText() -> String {
         guard let pinTFs = smPinTextFields else {return ""}
         let value = pinTFs.reduce("", {$0 + ($1.text ?? "")})
         return value
@@ -158,7 +157,7 @@ class SMPinView: UIView, UITextFieldDelegate {
     /**
      *  Return if all text fields are filled or not.
      */
-    func isAllTextFieldTyped() -> Bool {
+    func smIsAllTextFieldTyped() -> Bool {
         guard let pinTFs = smPinTextFields else {return false}
         let filledValues = pinTFs.filter{!($0.text?.isEmpty ?? true)}
         return filledValues.count == pinTFs.count
@@ -167,28 +166,28 @@ class SMPinView: UIView, UITextFieldDelegate {
     /**
      *  Makes first SMPinTextField first responder.
      */
-    func makeFirstTextFieldResponder() {
+    func smMakeFirstTextFieldResponder() {
         smPinTextFields?.first?.becomeFirstResponder()
     }
     
     /**
      *  Ends all responder.
      */
-    func resignAllResponder() {
+    func smResignAllResponder() {
         self.endEditing(true)
     }
     
     /**
      *  Clear all textFields
      */
-    func clearAllText() {
+    func smClearAllText() {
         smPinTextFields?.forEach{ $0.text = ""}
     }
     
     /**
      *  Get active SMPinTextTield
      */
-    func getActiveTextField() -> SMPinTextField? {
+    func smGetActiveTextField() -> SMPinTextField? {
         return smPinTextFields?.filter{$0.isFirstResponder}.first
     }
     

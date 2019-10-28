@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,11 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RtY-QC-u80" customClass="SMPinView" customModule="SMPinSMS" customModuleProvider="target">
-                                <rect key="frame" x="67" y="20" width="240" height="128"/>
+                                <rect key="frame" x="67.5" y="0.0" width="240" height="128"/>
                                 <subviews>
                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bUw-Rf-zsT" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
                                         <rect key="frame" x="42" y="39" width="35" height="50"/>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -33,19 +30,16 @@
                                             <constraint firstAttribute="width" constant="35" id="0Ew-Ki-o8U"/>
                                             <constraint firstAttribute="height" constant="50" id="RTg-aL-U05"/>
                                         </constraints>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Iu-xy-ENQ" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
                                         <rect key="frame" x="124" y="39" width="35" height="50"/>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxH-QA-P0y" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
                                         <rect key="frame" x="163" y="39" width="35" height="50"/>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -79,7 +73,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cly-Zg-W4a">
-                                <rect key="frame" x="67" y="156" width="240" height="40"/>
+                                <rect key="frame" x="67.5" y="136" width="240" height="40"/>
                                 <color key="backgroundColor" red="0.84083789590000002" green="0.1117544845" blue="0.025013202799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="KAA-4l-36O"/>
@@ -96,14 +90,57 @@
                                     <action selector="submitHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVK-so-0pH"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Jg-K3-PH0" customClass="SMPinView" customModule="SMPinSMS" customModuleProvider="target">
+                                <rect key="frame" x="67.5" y="216" width="240" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="goN-0X-r0S" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="52.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kzS-Fz-9lP" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
+                                        <rect key="frame" x="62.5" y="0.0" width="52.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EbX-xZ-QeK" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
+                                        <rect key="frame" x="125" y="0.0" width="52.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nWC-Em-okP" customClass="SMPinTextField" customModule="SMPinSMS" customModuleProvider="target">
+                                        <rect key="frame" x="187.5" y="0.0" width="52.5" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="au7-F5-2W6"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ob5-zU-T2A">
+                                <rect key="frame" x="67.5" y="286" width="240" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Submit (Stack view)">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RtY-QC-u80" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7XV-AY-4RG"/>
+                            <constraint firstItem="0Jg-K3-PH0" firstAttribute="centerX" secondItem="cly-Zg-W4a" secondAttribute="centerX" id="9DH-ZS-qOZ"/>
+                            <constraint firstItem="0Jg-K3-PH0" firstAttribute="width" secondItem="RtY-QC-u80" secondAttribute="width" id="BLb-aa-jxB"/>
+                            <constraint firstItem="Ob5-zU-T2A" firstAttribute="top" secondItem="0Jg-K3-PH0" secondAttribute="bottom" constant="20" id="ELt-t7-OFe"/>
                             <constraint firstItem="cly-Zg-W4a" firstAttribute="width" secondItem="RtY-QC-u80" secondAttribute="width" id="F27-rs-QZM"/>
+                            <constraint firstItem="Ob5-zU-T2A" firstAttribute="trailing" secondItem="0Jg-K3-PH0" secondAttribute="trailing" id="HLO-cI-cUO"/>
+                            <constraint firstItem="Ob5-zU-T2A" firstAttribute="height" secondItem="0Jg-K3-PH0" secondAttribute="height" id="Jcb-pA-eBs"/>
                             <constraint firstItem="cly-Zg-W4a" firstAttribute="centerX" secondItem="RtY-QC-u80" secondAttribute="centerX" id="Mro-hg-4eF"/>
                             <constraint firstItem="RtY-QC-u80" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="R3b-AV-ycc"/>
                             <constraint firstItem="cly-Zg-W4a" firstAttribute="top" secondItem="RtY-QC-u80" secondAttribute="bottom" constant="8" id="XiY-EP-SxK"/>
+                            <constraint firstItem="0Jg-K3-PH0" firstAttribute="top" secondItem="cly-Zg-W4a" secondAttribute="bottom" constant="40" id="cd6-Yh-xh6"/>
+                            <constraint firstItem="Ob5-zU-T2A" firstAttribute="leading" secondItem="0Jg-K3-PH0" secondAttribute="leading" id="mDa-FK-zJE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

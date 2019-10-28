@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func submitHandler(_ sender: UIButton) {
-        print(smPinView.isAllTextFieldTyped())
+        print(smPinView.smIsAllTextFieldTyped())
     }
     
 }
